@@ -1,36 +1,51 @@
 import { Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import { useEffect, useState } from 'react';
 // import './App.css';
 import ResourceCard from './components/ResourceCard';
 
-
-const resources = [
-  {
-    id: 1,
-    image: 'https://placeimg.com/64/64/1',
-    name: 'wooseungwoo',
-    birthday: '740225',
-    gender: '남자',
-    job: '자영업자'
-  },
-  {
-    id: 2,
-    image: 'https://placeimg.com/64/64/2',
-    name: 'wooseungwoo',
-    birthday: '740225',
-    gender: '남자',
-    job: '자영업자'
-  },
-  {
-    id: 3,
-    image: 'https://placeimg.com/64/64/3',
-    name: 'wooseungwoo',
-    birthday: '740225',
-    gender: '남자',
-    job: '자영업자'
-  },
-]; 
+// const resources = [
+//   {
+//     id: 1,
+//     image: 'https://placeimg.com/64/64/1',
+//     name: 'wooseungwoo',
+//     birthday: '740225',
+//     gender: '남자',
+//     job: '자영업자'
+//   },
+//   {
+//     id: 2,
+//     image: 'https://placeimg.com/64/64/2',
+//     name: 'wooseungwoo',
+//     birthday: '740225',
+//     gender: '남자',
+//     job: '자영업자'
+//   },
+//   {
+//     id: 3,
+//     image: 'https://placeimg.com/64/64/3',
+//     name: 'wooseungwoo',
+//     birthday: '740225',
+//     gender: '남자',
+//     job: '자영업자'
+//   },
+// ]; 
 
 function App() {
+
+  const [resources, setResources] = useState([]);
+
+  useEffect(()=>{
+    const getData = async () => {
+      const response = await fetch('http://localhost:5000/api/human_resources');
+      const body = await response.json();
+      console.log(body);
+      setResources(body);
+    };
+
+    getData();
+  }, []);
+
+
   return (
     <Paper>
       <Table>
@@ -45,7 +60,7 @@ function App() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {resources.map((man) =>       
+          {resources ? resources.map((man) =>       
             <ResourceCard
               key = {man.id}
               id = {man.id}
@@ -55,7 +70,7 @@ function App() {
               gender = {man.gender}
               job = {man.job}
             />
-          )}
+          ): ""}
         </TableBody>
       </Table>
     </Paper>
