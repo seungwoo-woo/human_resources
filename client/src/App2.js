@@ -1,4 +1,4 @@
-import { Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import { CircularProgress, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 import { useEffect, useState } from 'react';
 // import './App.css';
 import ResourceCard from './components/ResourceCard';
@@ -33,8 +33,15 @@ import ResourceCard from './components/ResourceCard';
 function App() {
 
   const [resources, setResources] = useState([]);
+  const [progress, setProgress] = useState(0);
+
 
   useEffect(()=>{
+
+    const timer = setInterval(() => {
+      setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 1));
+    }, 10);
+
     const getData = async () => {
       const response = await fetch('http://localhost:5000/api/human_resources');
       const body = await response.json();
@@ -43,6 +50,11 @@ function App() {
     };
 
     getData();
+
+    return () => {
+      clearInterval(timer);
+    };
+
   }, []);
 
 
@@ -60,7 +72,7 @@ function App() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {resources ? resources.map((man) =>       
+          {resources.length > 0 ? resources.map((man) =>       
             <ResourceCard
               key = {man.id}
               id = {man.id}
@@ -70,7 +82,13 @@ function App() {
               gender = {man.gender}
               job = {man.job}
             />
-          ): ""}
+          ): 
+          <TableRow>
+            <TableCell colSpan="6" align='center'>
+              <CircularProgress value={progress} />
+            </TableCell>
+          </TableRow>
+          }
         </TableBody>
       </Table>
     </Paper>
