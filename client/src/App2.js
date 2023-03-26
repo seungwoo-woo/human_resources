@@ -7,17 +7,9 @@ import ResourceCard from './components/ResourceCard';
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
+import { firebaseConfig } from './firebase';
 // ======================================================================
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDDJk6cyF5XX7Ex4IbKbox_xP7eHXuyXqk",
-  authDomain: "human-resources-manageme-206d2.firebaseapp.com",
-  projectId: "human-resources-manageme-206d2",
-  storageBucket: "human-resources-manageme-206d2.appspot.com",
-  messagingSenderId: "963148542799",
-  appId: "1:963148542799:web:f85d81f85cc595edac0b3a",
-  measurementId: "G-6KT3C852RT"
-};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
