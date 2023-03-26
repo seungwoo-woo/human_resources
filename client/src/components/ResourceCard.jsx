@@ -7,12 +7,12 @@ const Resources = (props) => {
 
   return (
     <TableRow>
-      <TableCell>{id}</TableCell>
-      <TableCell><img src={image} alt='profile'/></TableCell>
-      <TableCell>{name}</TableCell>
-      <TableCell>{birthday}</TableCell>
-      <TableCell>{gender}</TableCell>
-      <TableCell>{job}</TableCell>
+      <TableCell align='center'>{id}</TableCell>
+      <TableCell align='center'><img src={image} alt='profile'/></TableCell>
+      <TableCell align='center'>{name}</TableCell>
+      <TableCell align='center'>{birthday}</TableCell>
+      <TableCell align='center'>{gender}</TableCell>
+      <TableCell align='center'>{job}</TableCell>
     </TableRow>
   )
 }
