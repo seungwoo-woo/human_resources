@@ -8,7 +8,7 @@ const Resources = (props) => {
   return (
     <TableRow>
       <TableCell align='center'>{id}</TableCell>
-      <TableCell align='center'><img src={image} alt='profile'/></TableCell>
+      <TableCell align='center'><img src={image} width={64} alt='profile'/></TableCell>
       <TableCell align='center'>{name}</TableCell>
       <TableCell align='center'>{birthday}</TableCell>
       <TableCell align='center'>{gender}</TableCell>

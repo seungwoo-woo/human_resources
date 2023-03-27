@@ -1,16 +1,14 @@
 import { CircularProgress, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 import { useEffect, useState } from 'react';
-// import './App.css';
 import ResourceCard from './components/ResourceCard';
+import ResourceAdd from './components/ResourceAdd';
+// import './App.css';
 
 // firestore ============================================================
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { firebaseConfig } from './firebase';
-import ResourceAdd from './components/ResourceAdd';
 // ======================================================================
-
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -56,6 +54,10 @@ function App() {
 
   useEffect(()=>{
     
+    const timer = setInterval(() => {
+      setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 1));
+    }, 10);
+
     const getData = async () => {
       let data = [];
       const querySnapshot = await getDocs(collection(db, "HeenWoo_Com"));
@@ -65,17 +67,6 @@ function App() {
       setResources(data);
     }
     
-    const timer = setInterval(() => {
-      setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 1));
-    }, 10);
-
-    // const getData = async () => {
-    //   const response = await fetch('http://localhost:5000/api/human_resources');
-    //   const body = await response.json();
-    //   console.log(body);
-    //   setResources(body);
-    // };
-
     getData();
 
     return () => {
@@ -83,6 +74,7 @@ function App() {
     };
 
   }, []);
+
 
 
   return (
