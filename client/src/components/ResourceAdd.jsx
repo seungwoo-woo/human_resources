@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+
 // firestore ============================================================
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -48,6 +49,7 @@ const ResourceAdd = () => {
       console.log("Document written with ID: ", docRef.id);
       alert("resource 가 저장되었습니다.");
       // navigate('/recipe/'+ docRef.id);
+      window.location.reload();
     } catch (e) {
       console.error("Error adding document: ", e);
     }
