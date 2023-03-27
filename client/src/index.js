@@ -6,7 +6,7 @@ import App from './App2';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <App style={{fontFamily: '"Noto Sans KR", serif'}} />
   </React.StrictMode>
 );
 

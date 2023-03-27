@@ -85,8 +85,8 @@ const ResourceAdd = () => {
 
   return (
     <div>
-      <Button variant='contained' color='primary' onClick={handleClickOpen}>
-        Human Resource 추가
+      <Button style={{marginLeft: 800}} variant='contained' color='primary' onClick={handleClickOpen}>
+        Resource 추가
       </Button>
       <Dialog open={isDialogOpen} onClose={handleClickClose}>
         <DialogTitle>Human Resource 추가</DialogTitle>
@@ -95,8 +95,8 @@ const ResourceAdd = () => {
           <label htmlFor='raised-button-file'>
             <Button variant='contained' color='primary' component='span' name='imageFile'>
               {resource.imageName === "" ? "이미지 선택" : resource.imageName}
-            </Button><br/>
-          </label>
+            </Button>
+          </label><br/>
           <TextField label='name' type="text" name='name' value={resource.name} onChange={handleValueChenge} /><br/>
           <TextField label='birthday' type="text" name='birthday' value={resource.birthday} onChange={handleValueChenge} /><br/>
           <TextField label='gender' type="text" name='gender' value={resource.gender} onChange={handleValueChenge} /><br/>

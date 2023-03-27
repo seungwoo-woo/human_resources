@@ -2,6 +2,10 @@ import { CircularProgress, Paper, Table, TableBody, TableCell, TableHead, TableR
 import { useEffect, useState } from 'react';
 import ResourceCard from './components/ResourceCard';
 import ResourceAdd from './components/ResourceAdd';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 // import './App.css';
 
 // firestore ============================================================
@@ -50,7 +54,7 @@ function App() {
 
   const [resources, setResources] = useState([]);
   const [progress, setProgress] = useState(0);
-
+  const tableList = ['ID', '사진', '이름', '생년월일', '성별', '직업', '설정'];
 
   useEffect(()=>{
     
@@ -80,17 +84,25 @@ function App() {
 
   return (
     <>
-      <Paper>
+      <Navbar bg="primary" variant="dark">
+        <Container>
+          <Navbar.Brand href="home">Human Resources Management</Navbar.Brand>
+          <Nav className="me-auto">
+            {/* <Nav.Link href="home">Home</Nav.Link>
+            <Nav.Link href="features">Features</Nav.Link>
+            <Nav.Link href="pricing">Pricing</Nav.Link> */}
+            <ResourceAdd />
+          </Nav>
+        </Container>
+      </Navbar>
+
+      <Paper style={{marginTop: 10, marginLeft: 30, marginRight: 30}}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align='center'>ID</TableCell>
-              <TableCell align='center'>사진</TableCell>
-              <TableCell align='center'>이름</TableCell>
-              <TableCell align='center'>생년월일</TableCell>
-              <TableCell align='center'>성별</TableCell>
-              <TableCell align='center'>직업</TableCell>
-              <TableCell align='center'>설정</TableCell>
+              {tableList.map((item) => {
+                return <TableCell style={{fontSize: '1.1rem', fontWeight: 600}} align='center'>{item}</TableCell>
+              })}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -114,7 +126,7 @@ function App() {
           </TableBody>
         </Table>
       </Paper>
-      <ResourceAdd />
+      
     </>
   );
 }
