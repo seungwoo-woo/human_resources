@@ -98,7 +98,7 @@ function App() {
 
       <Paper style={{marginTop: 10, marginLeft: 30, marginRight: 30}}>
         <Table>
-          <TableHead>
+          <TableHead style={{backgroundColor: '#DBDBDB'}}>
             <TableRow>
               {tableList.map((item) => {
                 return <TableCell style={{fontSize: '1.1rem', fontWeight: 600}} align='center'>{item}</TableCell>
@@ -118,7 +118,7 @@ function App() {
               />
             ): 
             <TableRow>
-              <TableCell colSpan="6" align='center'>
+              <TableCell colSpan="7" align='center'>
                 <CircularProgress value={progress} />
               </TableCell>
             </TableRow>
