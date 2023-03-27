@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-
+import { Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 // firestore ============================================================
 import { initializeApp } from "firebase/app";
@@ -17,25 +18,33 @@ const storage = getStorage(app);
 const db = getFirestore(app);
 
 
+// ##############################################################################
 
 const ResourceAdd = () => {
 
   const [resource, setResource] = 
     useState({ imageFile: null, imageName: '', name: '', birthday: '', gender: '', job: '', isDeleted: 0});
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setIsDialogOpen(true);
+  };
+  
+  const handleClickClose = () => {
+    setIsDialogOpen(false);
+  }
 
   const handleFileChange = (e) => {
     const resourceCopy = {...resource, imageFile: e.target.files[0], imageName: e.target.files[0].name};
     setResource(resourceCopy);
   };
 
-
   const handleValueChenge = (e) => {
     const keyValue = e.target.name;
     const resourceCopy = {...resource, [keyValue]: e.target.value };
     setResource(resourceCopy);
   };
-
 
   const uploadResourceData = async (imagePath) => {
     try {
@@ -54,8 +63,7 @@ const ResourceAdd = () => {
     } catch (e) {
       console.error("Error adding document: ", e);
     }
-  }
-
+  };
 
   const handleSubmit = (e) => {
 
@@ -71,18 +79,36 @@ const ResourceAdd = () => {
         uploadResourceData(imagePath);
       });      
     })
+    setIsDialogOpen(false);
   };
 
 
   return (
-    <div style={{marginLeft: 50}}>
-      <h1>Resource 추가</h1>
-      image : <input type="file" name='imageFile' onChange={handleFileChange} /><br/>
-      name : <input type="text" name='name' value={resource.name} onChange={handleValueChenge} /><br/>
-      birthday : <input type="text" name='birthday' value={resource.birthday} onChange={handleValueChenge} /><br/>
-      gender : <input type="text" name='gender' value={resource.gender} onChange={handleValueChenge} /><br/>
-      job : <input type="text" name='job' value={resource.job} onChange={handleValueChenge} /><br/>
-      <button onClick={handleSubmit}>Add Resource</button>
+    <div>
+      <Button variant='contained' color='primary' onClick={handleClickOpen}>
+        Human Resource 추가
+      </Button>
+      <Dialog open={isDialogOpen} onClose={handleClickClose}>
+        <DialogTitle>Human Resource 추가</DialogTitle>
+        <DialogContent>
+          <input style={{display: 'none'}} accept="image/*" id="raised-button-file" type="file" onChange={handleFileChange} />
+          <label htmlFor='raised-button-file'>
+            <Button variant='contained' color='primary' component='span' name='imageFile'>
+              {resource.imageName === "" ? "이미지 선택" : resource.imageName}
+            </Button><br/>
+          </label>
+          <TextField label='name' type="text" name='name' value={resource.name} onChange={handleValueChenge} /><br/>
+          <TextField label='birthday' type="text" name='birthday' value={resource.birthday} onChange={handleValueChenge} /><br/>
+          <TextField label='gender' type="text" name='gender' value={resource.gender} onChange={handleValueChenge} /><br/>
+          <TextField label='job' type="text" name='job' value={resource.job} onChange={handleValueChenge} /><br/>
+        </DialogContent>
+        <DialogActions>
+          <Button variant='contained' color='primary' onClick={handleSubmit}>Add</Button>
+          <Button variant='contained' color='outlined' onClick={handleClickClose}>close</Button>
+
+        </DialogActions>
+      </Dialog>
+
     </div>
   )
 }
