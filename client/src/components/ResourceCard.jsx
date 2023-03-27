@@ -1,5 +1,6 @@
 import { TableCell, TableRow } from '@material-ui/core';
 import React from 'react'
+import ResourceDelete from './ResourceDelete';
 
 
 const Resources = (props) => {
@@ -13,6 +14,7 @@ const Resources = (props) => {
       <TableCell align='center'>{birthday}</TableCell>
       <TableCell align='center'>{gender}</TableCell>
       <TableCell align='center'>{job}</TableCell>
+      <TableCell align='center'><ResourceDelete id={id} /></TableCell>
     </TableRow>
   )
 }

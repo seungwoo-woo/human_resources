@@ -6,7 +6,7 @@ import ResourceAdd from './components/ResourceAdd';
 
 // firestore ============================================================
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs, query, where } from "firebase/firestore";
 import { firebaseConfig } from './firebase';
 // ======================================================================
 
@@ -60,7 +60,8 @@ function App() {
 
     const getData = async () => {
       let data = [];
-      const querySnapshot = await getDocs(collection(db, "HeenWoo_Com"));
+      const querySnapshot = await getDocs(query(collection(db, "HeenWoo_Com"), where("isDeleted", "==", 0)));
+
       querySnapshot.forEach((doc) => {
         data.push({...doc.data(), id: doc.id,})
       });
@@ -89,6 +90,7 @@ function App() {
               <TableCell align='center'>생년월일</TableCell>
               <TableCell align='center'>성별</TableCell>
               <TableCell align='center'>직업</TableCell>
+              <TableCell align='center'>설정</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

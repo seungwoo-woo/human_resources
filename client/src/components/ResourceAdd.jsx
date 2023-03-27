@@ -21,7 +21,7 @@ const db = getFirestore(app);
 const ResourceAdd = () => {
 
   const [resource, setResource] = 
-    useState({ imageFile: null, imageName: '', name: '', birthday: '', gender: '', job: ''});
+    useState({ imageFile: null, imageName: '', name: '', birthday: '', gender: '', job: '', isDeleted: 0});
 
 
   const handleFileChange = (e) => {
@@ -45,6 +45,7 @@ const ResourceAdd = () => {
         birthday: resource.birthday,
         gender: resource.gender,
         job: resource.job,
+        isDeleted: resource.isDeleted,
       });
       console.log("Document written with ID: ", docRef.id);
       alert("resource 가 저장되었습니다.");
